@@ -1,5 +1,6 @@
 // profile page style
 .profile-page {
+    background-color: $background-color-lighter;
     @include media-breakpoint-up(lg) {
         min-height: calc(100vh - 142px);
     }
@@ -72,11 +73,11 @@
                         font-size: 24px;
                         line-height: 32px;
                         font-weight: 700;
-                        color: $text-color;
                         margin: 0 0 5px;
+                        color: $text-color-dark;
                     }
                     p {
-                        color: $text-color-primary;
+                        color: $text-color-dark;
                         margin: 0;
                         font-size: 12px;
                         line-height: 16px;
@@ -116,8 +117,8 @@
                     box-shadow: none;
                     border-radius: 8px;
                     padding: 15px;
-                    background: $primary-light;
-                    color: $text-color;
+                    background: #fff;
+                    color: $text-color-dark;
                     font-size: 14px;
                     line-height: 20px;
                     a {
@@ -127,7 +128,6 @@
                         margin: 0 0 10px;
                         font-weight: 500;
                         font-size: 14px;
-                        color: $text-color;
                     }
                     p {
                         margin: 0 0 10px;

@@ -1,9 +1,25 @@
-$primary: #15376D;
-$primary-light: #F2F7F8;
+$primary: #002FA7;
+$primary-light: #F0F4F8;
+$light-dark: #B0B7C3;
+$text-color: #001B4D;
+$text-color-primary: #E5E7EB;
+$text-color-light: #E5E7EB;
+
+$dark: #111827;
 $light-dark: #374151;
-$text-color: #111827;
-$text-color-primary: #515661;
-$text-color-light: #515661;
+$big-screen: 1200px;
+
+$background-color-light: #B0B7C3;
+$background-color-lighter: #F0F4f8;
+$background-color-dark: #162838;
+
+$text-color-light: #E5E7EB;
+$text-color-dark: #001B4D;
+
+$secondary: #032F5F;
+$header-color: $secondary;
+$link-color: #0B2032;
+$icon-color: #0B2032;
 
 // for toggle theme button
 $page-color-transition: transparent .2s ease, color .2s ease;

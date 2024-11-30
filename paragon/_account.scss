@@ -1,3 +1,7 @@
+main {
+    background-color: $background-color-lighter;
+}
+
 .page__account-settings {
     max-width: 1600px;
     margin: 0 auto;
@@ -9,7 +13,7 @@
         height: 32px;
     }
     h1 {
-        color: $text-color;
+        color: $text-color-dark;
         font-size: 24px;
         line-height: 30px;
         font-weight: 700;
@@ -18,7 +22,7 @@
     .account-section {
         font-size: 14px;
         line-height: 20px;
-        color: $text-color-primary;
+        color: $text-color-dark;
         p {
             margin: 0 0 15px;
         }
@@ -115,7 +119,7 @@
     }
     .pgn-transition-replace-group + .form-group {
         border: 1px solid #E5E7EB;
-        border-left: 8px solid $primary-light;
+        border-left: 8px solid $background-color-light;
         padding: 15px !important;
         margin: 0 0 15px !important;
         border-radius: 8px;
@@ -149,7 +153,7 @@
     }
     .pgn-transition-replace-group {
         border: 1px solid #E5E7EB;
-        border-left: 8px solid $primary-light;
+        border-left: 8px solid $background-color-light;
         padding: 15px !important;
         margin: 0 0 15px !important;
         border-radius: 8px;
@@ -178,7 +182,7 @@
             p.text-truncate, p[data-hj-suppress="true"] {
                 font-weight: 600;
                 font-size: 16px;
-                color: $text-color-primary;
+                color: $text-color-dark;
                 margin: 5px 0 0 !important;
                 button {
                     font-weight: 600;

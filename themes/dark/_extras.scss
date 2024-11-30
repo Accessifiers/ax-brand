@@ -198,7 +198,7 @@ div[data-testid=instructor-toolbar] {
     color: $text-color;
 }
 a.course-card-title {
-    color: $text-color;
+    color: $text-color-dark;
 }
 .text-dark-500 {
     color: $text-color  !important;
@@ -407,6 +407,11 @@ a.course-card-title {
                                     .alert-icon {
                                         margin: 0 5px 0 0;
                                         width: 20px;
+                                        svg {
+                                            path {
+                                                fill: $icon-color;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -495,11 +500,17 @@ a.course-card-title {
                     }
                     #looking-for-challenge-widget {
                         .pgn__card-body {
+                            h4 {
+                                color: $text-color-dark;
+                            }
                             a {
-                                color: $text-color;
+                                color: $text-color-dark;
                                 svg {
-                                    fill: $text-color;
+                                    fill: $text-color-dark;
                                 }
+                            }
+                            h5 {
+                                color: $link-color;
                             }
                         }
                     }
