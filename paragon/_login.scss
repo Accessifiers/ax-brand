@@ -12,27 +12,27 @@
         @include media-breakpoint-up(sm) {
             padding: 50px;
         }
-        // &:after, &:before {
-        //     position: absolute;
-        //     left: -400px;
-        //     bottom: -400px;
-        //     content: "";
-        //     width: 400px;
-        //     height: 400px;
-        //     border-radius: 50%;
-        //     box-shadow: 400px -400px 143px 90px $primary;
-        //     display: none;
-        //     @include media-breakpoint-up(sm) {
-        //         display: block;
-        //     }
-        // }
-        // &:before {
-        //     right: 400px;
-        //     top: -400px;
-        //     left: auto;
-        //     bottom: auto;
-        //     box-shadow: 400px 400px 143px 90px $primary;
-        // }
+        &:after, &:before {
+            position: absolute;
+            left: -400px;
+            bottom: -400px;
+            content: "";
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            box-shadow: 400px -400px 143px 90px $primary;
+            display: none;
+            @include media-breakpoint-up(sm) {
+                display: block;
+            }
+        }
+        &:before {
+            right: 400px;
+            top: -400px;
+            left: auto;
+            bottom: auto;
+            box-shadow: 400px 400px 143px 90px $primary;
+        }
         .col-md-3.bg-white {
             display: none;
         }
