@@ -1,64 +1,120 @@
 # Open edX Brand Package Interface
 
-This project contains the default branding assets and style used in Open edX
-applications. It is published on npm as `@openedx/brand-openedx`.
+This project contains the Accessifiers' branding assets and styles used in Open edX applications. The file structure serves as an interface for implementing custom branding and theming in Open edX.
 
-The file structure serves as an interface to be implemented for custom
-branding and theming of Open edX.
+## Table of Contents
 
-## How to use this package
+- [How to Use This Package](#how-to-use-this-package)
+  - [Local Development (Hot Reload)](#local-development-hot-reload)
+  - [Deployment](#deployment)
+- [Additional Resources](#additional-resources)
 
-Applications in Open edX are configured by default to include this
-package for branding assets and theming visual style.
+## How to Use This Package
 
-To use a custom brand and theme\...
+Applications in Open edX are configured by default to include this package for branding assets and visual style theming.
 
-1.  Fork or copy this project. Ensure that it lives in a location
-    accessible to Open edX applications during asset builds. This may be
-    a published git repo, npm, or local folder depending on your
-    situation.
-2.  Replace the assets in this project with your own logos or SASS
-    theme. Match the filenames exactly. Open edX applications refer to
-    these files by their filepath. Refer to the brand for edx.org at
-    <https://github.com/edx/brand> for an example.
-3.  Configure your Open edX instance to consume your custom brand
-    package. Refer to this documentation on configuring the platform:
-    https://docs.openedx.org/projects/openedx-proposals/en/latest/architectural-decisions/oep-0048-brand-customization.html
-    \[TODO: Add a link to documentation on configuring in Open edX MFE
-    pipelines when it exists\]
-4.  Rebuild the assets and microfrontends in your Open edX instance to
-    see the new brand reflected. \[TODO: Add link to relevant
-    documentation when it is completed\].
+### Local Development (Hot Reload)
 
-## Files this package must make available
+1. **Fork and Clone the MFE Repository:**
 
-`/logo.svg`
+   Fork and clone the Micro Frontend (MFE) repository you want to customize. Refer to the [tutor-mfe README](https://github.com/overhangio/tutor-mfe#mfe-development) for detailed setup instructions.
 
-![logo](/logo.svg)
+   In your cloned MFE repository, create a file called `module.config.js` with the following content:
 
-`/logo-trademark.svg` A variant of the logo with a trademark ® or ™.
-Note: This file must be present. If you don\'t have a trademark variant
-of your logo, copy your regular logo and use that.
+   ```javascript
+   module.exports = {
+     localModules: [{ moduleName: "@edx/brand", dir: "../ax-brand" }],
+   };
+   ```
 
-![logo](/logo-trademark.svg)
+   This configuration will look for the custom brand package in the same parent directory and apply the custom styling.
 
-`/logo-white.svg` A variant of the logo for use on dark backgrounds
+2. **Fork or Copy This Project:**
 
-![logo](/logo-white.svg)
+   Ensure that this project resides in the same parent directory as the MFE repository.
 
-`/favicon.ico` A site favicon
+3. **Bind Mount the Custom Branding:**
 
-![favicon](/favicon.ico)
+   Run the following command to bind mount the custom branding onto the MFE application:
 
-`/paragon/images/card-imagecap-fallback.png` A variant of the default
-fallback image for [Card.ImageCap] component.
+   ```bash
+   tutor mounts add <MFE name>:<path-to-custom-brand>:/openedx/ax-brand
+   ```
 
-![card-imagecap-fallback](/paragon/images/card-imagecap-fallback.png)
+   - If working with multiple MFE pages, mount each individually using the same command.
+   - Ensure that the names of the MFE pages match exactly.
+   - For more details, refer to [How to Use edx-brand in Local Development and Production](https://discuss.openedx.org/t/how-to-use-edx-brand-in-local-development-and-production/13323).
 
-`/paragon/fonts.scss`, `/paragon/_variables.scss`,
-`/paragon/_overrides.scss` A SASS theme for
-[\@edx/paragon](https://github.com/openedx/paragon). Theming
-documentation in Paragon is coming soon. In the meantime, you can start
-a theme by the contents of [\_variables.scss (after line
-7)](https://github.com/openedx/paragon/blob/master/scss/core/_variables.scss#L7-L1046)
-file from the Paragon repository into this file.
+4. **Replace Assets with Your Own SASS Theme:**
+
+   Replace the assets in this project with your own SASS theme.
+
+5. **Launch the Development Environment:**
+
+   Run:
+
+   ```bash
+   tutor dev launch
+   ```
+
+   Any changes you make in your custom brand package will be hot-reloaded.
+
+   > **Note:** Refresh the page if changes are not immediately reflected. It might take a few seconds for the SASS to be recompiled.
+
+### Deployment
+
+You can either [create a Tutor plugin](https://docs.tutor.edly.io/tutorials/plugin.html) or use [tutor-indigo](https://github.com/Accessifiers/ax-tutor-indigo)'s existing `plugin.py` to deploy your MFE changes.
+
+1. **Add the Following Patch:**
+
+   Add this patch to your custom plugin or `tutor-indigo`'s `plugin.py` to install your custom brand package:
+
+   ```python
+   hooks.Filters.ENV_PATCHES.add_item(
+       (
+           "mfe-dockerfile-post-npm-install",
+           """
+   RUN npm install '@edx/brand@git+<url-to-your-custom-brand-repository>'
+   """
+       )
+   )
+   ```
+
+2. **Rebuild Your MFE Image:**
+
+   Run:
+
+   ```bash
+   tutor images build --no-cache --no-registry mfe
+   ```
+
+3. **Launch or Start Tutor:**
+
+   Run one of the following commands:
+
+   ```bash
+   tutor local launch
+   ```
+
+   or
+
+   ```bash
+   tutor local start -d
+   ```
+
+   > **Note:** Docker attempts to run as many build processes in parallel as possible, which can cause failures in the MFE image build. If you encounter OOM issues, RAM starvation, or network failures during NPM installs, try the following before restarting:
+
+   ```bash
+   cat >buildkitd.toml <<EOF
+   [worker.oci]
+     max-parallelism = 1
+   EOF
+   docker buildx create --use --name=singlecpu --config=./buildkitd.toml
+   ```
+
+   This forces Docker to build using a single CPU, reducing the likelihood of errors.
+
+## Additional Resources
+
+- [Official tutor-mfe README](https://github.com/overhangio/tutor-mfe)
+- [Tutor MFE Custom Theme/Styling Help](https://discuss.openedx.org/t/tutor-mfe-custom-theme-styling-help/14170)
