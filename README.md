@@ -118,3 +118,4 @@ You can either [create a Tutor plugin](https://docs.tutor.edly.io/tutorials/plug
 
 - [Official tutor-mfe README](https://github.com/overhangio/tutor-mfe)
 - [Tutor MFE Custom Theme/Styling Help](https://discuss.openedx.org/t/tutor-mfe-custom-theme-styling-help/14170)
+- [Video tutorial](https://youtu.be/9ED7PmzazIY)
